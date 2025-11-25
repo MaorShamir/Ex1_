@@ -75,6 +75,8 @@ class Ex1Test {
         double[] p1 = Ex1.add(po1, Ex1.ZERO);
         assertTrue(Ex1.equals(p1, po1));
     }
+
+    //
     @Test
     /**
      * Tests that p1*0 == 0
@@ -647,6 +649,161 @@ class Ex1Test {
         double[] p = {15.0, -8.0, 12.0, 0.0,3.0, 0.0, -2.0, 5.0};;
         double[] der = {-8.0, 24.0, 0.0,12.0, 0.0, -12.0, 35.0};
         assertArrayEquals(der, Ex1.derivative(p));
+    }
+
+    // tests for the function add
+
+    @Test
+    /**
+     * tests positive functions
+     */
+    public void testPositiveAdd() {
+        double[] p1 = {1,2,3};;
+        double[] p2 = {4,5,6,7};
+        assertArrayEquals(new double[]{5,7,9,7}, Ex1.add(p1,p2));
+    }
+
+
+    @Test
+    /**
+     * tests negative functions
+     */
+    public void testNegativeAdd() {
+        double[] p1 = {-8.4,-2,-7,-80, -72};;
+        double[] p2 = {-3,-85,-4.8};
+        assertArrayEquals(new double[]{-11.4,-87,-11.8,-80, -72}, Ex1.add(p1,p2));
+    }
+
+    @Test
+    /**
+     * tests positive and negative values
+     */
+    public void testEqualAdd() {
+        double[] p1 = {-1,2,3};;
+        double[] p2 = {4,-5,6};
+        assertArrayEquals(new double[]{3,-3,9}, Ex1.add(p1,p2));
+    }
+
+
+    @Test
+    /**
+     * tests Zero functions
+     */
+    public void testZeroAdd() {
+        double[] p1 = {0,0,0,0,0,0};;
+        double[] p2 = {0,0};
+        assertArrayEquals(new double[]{0,0,0,0,0,0}, Ex1.add(p1,p2));
+    }
+
+
+    @Test
+    /**
+     * tests Empty functions
+     */
+    public void testEmptyAdd() {
+        double[] p1 = {};;
+        double[] p2 = {};
+        assertArrayEquals(new double[]{}, Ex1.add(p1,p2));
+    }
+
+
+    @Test
+    /**
+     * tests null function
+     */
+    public void testNullAdd() {
+        double[] p1 = null;
+        double[] p2 = {0.5,-10,98};
+        assertArrayEquals(new double[]{0.5,-10,98}, Ex1.add(p1,p2));
+    }
+
+
+    @Test
+    /**
+     * tests both null functions
+     */
+    public void testBothNullAdd() {
+        double[] p1 = null;
+        double[] p2 = null;
+        assertArrayEquals(Ex1.ZERO, Ex1.add(p1,p2));
+    }
+
+
+    // tests for the function mul
+
+    @Test
+    /**
+     * tests positive functions
+     */
+    public void testPositiveMul() {
+        double[] p1 = {1,2,3};;
+        double[] p2 = {4,5,6,7};
+        assertArrayEquals(new double[]{4,10,18,7}, Ex1.mul(p1,p2), Ex1.EPS);
+    }
+
+
+    @Test
+    /**
+     * tests negative functions
+     */
+    public void testNegativeMul() {
+        double[] p1 = {-8.4,-2,-7,-80, -72};;
+        double[] p2 = {-3,-85,-4.8};
+        assertArrayEquals(new double[]{25.2,170,33.6,-80, -72}, Ex1.mul(p1,p2), Ex1.EPS);
+    }
+
+    @Test
+    /**
+     * tests positive and negative values
+     */
+    public void testEqualMul() {
+        double[] p1 = {-1,2,3};;
+        double[] p2 = {4,-5,6};
+        assertArrayEquals(new double[]{-4,-10,18}, Ex1.mul(p1,p2), Ex1.EPS);
+    }
+
+
+    @Test
+    /**
+     * tests Zero functions
+     */
+    public void testZeroMul() {
+        double[] p1 = {0,0,0,0,0,0};;
+        double[] p2 = {0,0};
+        assertArrayEquals(new double[]{0,0,0,0,0,0}, Ex1.mul(p1,p2));
+    }
+
+
+    @Test
+    /**
+     * tests Empty functions
+     */
+    public void testEmptyMul() {
+        double[] p1 = {};;
+        double[] p2 = {};
+        assertArrayEquals(new double[]{}, Ex1.mul(p1,p2));
+    }
+
+
+    @Test
+    /**
+     * tests null function
+     */
+    public void testNullMul() {
+        double[] p1 = null;
+        double[] p2 = {0.5,-10,98};
+        assertArrayEquals(new double[]{0.5,-10,98}, Ex1.mul(p1,p2));
+    }
+
+
+    @Test
+    /**
+     * tests both null functions
+     */
+    public void testBothNullMul() {
+        double[] p1 = null;
+        double[] p2 = null;
+        assertArrayEquals(Ex1.ZERO, Ex1.mul(p1,p2));
     }
 
 }

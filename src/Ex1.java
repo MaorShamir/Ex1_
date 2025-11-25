@@ -4,7 +4,7 @@
  * Introduction to Computer Science 2026, Ariel University,
  * Ex1: arrays, static functions and JUnit
  * https://docs.google.com/document/d/1GcNQht9rsVVSt153Y8pFPqXJVju56CY4/edit?usp=sharing&ouid=113711744349547563645&rtpof=true&sd=true
- *
+
  * This class represents a set of static methods on a polynomial functions - represented as an array of doubles.
  * The array {0.1, 0, -3, 0.2} represents the following polynomial function: 0.2x^3-3x^2+0.1
  * This is the main Class you should implement (see "add your code below")
@@ -130,10 +130,10 @@ public class Ex1 {
             double[] min = null;
             int lmax = 0;
             int lmin = 0;
-            if (lp1-lp2>0) { // p1 is longer
+            if (lp1>lp2) { // p1 is longer
                 max = p1; min = p2; lmax = lp1; lmin = lp2;
             }
-            else if (lp1-lp2<0){ // p2 is longer
+            else if (lp2>lp1){ // p2 is longer
                 max = p2;min = p1;lmax = lp2;lmin = lp1;
             }
             else for (int k = 0; k < lp1; k++) { // if lp1 and lp2 are equal
@@ -306,8 +306,42 @@ public class Ex1 {
     public static double[] add(double[] p1, double[] p2) {
         double [] ans = ZERO;//
         /** add you code below
-
+         * int lp1 = p1.length;
+         * int lp2 = p2.length;
+         * if (lp1 > lp2 or lp1 == lp2) {p1 = max, p2 = min, lmax = lp1, lmin = lp2}
+         * else if (lp2 > lp1) {p2 = max, p1 = min, lmax = lp2, lmin = lp1}
+         *for (int a = 0 ; a<lmax; a++){
+         *  ans = new double[lmax];
+         *  for (int b = 0; b<lmin; b++){
+         *      ans[a] = p1[a] + p2[b];
+         *      }
+         *  while (a>lmin){
+         *      ans[a] = p1[a]
+         *
+         * }
+         * }
+         */
          /////////////////// */
+        if (p1 == null && p2 == null){return ans;}
+        if (p1 == null){return p2;}
+        if (p2 == null){return p1;}
+
+        int lp1 = p1.length;
+        int lp2 = p2.length;
+        double[] max = null; int lmax = 0; int lmin = 0;
+        if (lp1 > lp2 || lp1 == lp2) {max = p1; lmax = lp1; lmin = lp2;}
+        else {max = p2; lmax = lp2; lmin = lp1;}
+
+        ans = new double[lmax];
+        int a = 0;
+        while (a<lmin){
+            ans[a] = p1[a] + p2[a];
+            a++;
+        }
+        while (a >= lmin && a<lmax) {
+            ans[a] = max[a];
+            a++;
+            }
         return ans;
     }
     /**
@@ -319,8 +353,29 @@ public class Ex1 {
     public static double[] mul(double[] p1, double[] p2) {
         double [] ans = ZERO;//
         /** add you code below
-
+         basically the same as the add function but with multiplication
          /////////////////// */
+
+        if (p1 == null && p2 == null){return ans;}
+        if (p1 == null){return p2;}
+        if (p2 == null){return p1;}
+
+        int lp1 = p1.length;
+        int lp2 = p2.length;
+        double[] max = null; int lmax = 0; int lmin = 0;
+        if (lp1 > lp2 || lp1 == lp2) {max = p1; lmax = lp1; lmin = lp2;}
+        else {max = p2; lmax = lp2; lmin = lp1;}
+
+        ans = new double[lmax];
+        int a = 0;
+        while (a<lmin){
+            ans[a] = p1[a] * p2[a];
+            a++;
+        }
+        while (a >= lmin && a<lmax) {
+            ans[a] = max[a];
+            a++;
+        }
         return ans;
     }
 
