@@ -571,8 +571,8 @@ class Ex1Test {
      * tests positive values
      */
     public void testPositiveDerivative() {
-        double[] p = {3,5,20,9}; //9x^3 +20x^2 +5x +3, der = 18x^2 +40x +5
-        double[] der = {5,40,27};
+        double[] p = {3,5,20,9}; //9x^3 +20x^2 +5x +3
+        double[] der = {5,40,27}; // 27x^2 +40x +5
         assertArrayEquals(der, Ex1.derivative(p));
     }
 
@@ -608,5 +608,45 @@ class Ex1Test {
         assertArrayEquals(der, Ex1.derivative(p));
     }
 
+    @Test
+    /**
+     * tests f(x)=a function
+     */
+    public void testShortDerivative() {
+        double[] p = {7};
+        double[] der = {};
+        assertArrayEquals(der, Ex1.derivative(p));
+    }
+
+
+    @Test
+    /**
+     * tests empty function
+     */
+    public void testEmptyDerivative() {
+        double[] p = {};
+        assertArrayEquals(Ex1.ZERO, Ex1.derivative(p));
+    }
+
+
+    @Test
+    /**
+     * tests null function
+     */
+    public void testNullDerivative() {
+        double[] p = null;
+        assertArrayEquals(Ex1.ZERO, Ex1.derivative(p));
+    }
+
+
+    @Test
+    /**
+     * tests long function
+     */
+    public void testLongDerivative() {
+        double[] p = {15.0, -8.0, 12.0, 0.0,3.0, 0.0, -2.0, 5.0};;
+        double[] der = {-8.0, 24.0, 0.0,12.0, 0.0, -12.0, 35.0};
+        assertArrayEquals(der, Ex1.derivative(p));
+    }
 
 }

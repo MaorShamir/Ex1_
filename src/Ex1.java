@@ -340,7 +340,9 @@ public class Ex1 {
          * add to ans
          */
         /////////////////// */
+        if (po == null){return ans;}
         int lp = po.length; // po= {2,4,6}, lp = 3, f(x) = 6x^2 +4x +2
+        if (lp==0 ){return ans;}
         ans = new double[lp - 1];
         for (int i = 0 ; i<ans.length; i++){ // i=1, i=2
             ans[i] = po[i+1] * (i+1); // der = 4*1, der = 6*2
