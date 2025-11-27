@@ -519,19 +519,6 @@ class Ex1Test {
         assertTrue(Ex1.equals(p1, p2));
     }
 
-
-    @Test
-    /**
-     * tests if 2 functions are equal when promoter is epsilon
-     */
-    public void testEqualsEpsilon() {
-        double[] p1 = {1.0000001, 2};
-        double[] p2 = {1.0000002, 2};
-
-        assertFalse(Ex1.equals(p1, p2));
-    }
-
-
     @Test
     /**
      * tests if 2 functions are equal when one is null

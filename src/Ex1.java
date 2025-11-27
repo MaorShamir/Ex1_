@@ -117,35 +117,26 @@ public class Ex1 {
     public static boolean equals(double[] p1, double[] p2) {
         boolean ans = true;
 
-        /** add you code below
-         * if p1[0] == p2[0] and p1[1] == p2[1] and ... and p1[n-1] == p2[n-1]
-         * or if p1[a] not exist and p2[a] == 0
-         * than the functions are equal
+        /** add your code below
+         * 2 functions are equal if f(x) = g(x) for every Eps<x<(max degree)
+         * int lp1 = p1.length;
+         * int lp2 = p2.length;
+         * int lmax = 0
+         * if (lp1>= lp2){lmax=lp1;}
+         * else{lmax=lp2}
+         * for( int i = 0 ; i< lmax; i++){ // i is until max degree
+         *   if f(p1, i) != f(p2, i){ // need to check until EPS
+         *   return !ans}
+         *   }
          /////////////////// */
 
         if(p1!=null && p2!=null) { //check 2 functions aren't empty
             int lp1 = p1.length;
             int lp2 = p2.length;
-            double[] max = null;
-            double[] min = null;
-            int lmax = 0;
-            int lmin = 0;
-            if (lp1>lp2) { // p1 is longer
-                max = p1; min = p2; lmax = lp1; lmin = lp2;
-            }
-            else if (lp2>lp1){ // p2 is longer
-                max = p2;min = p1;lmax = lp2;lmin = lp1;
-            }
-            else for (int k = 0; k < lp1; k++) { // if lp1 and lp2 are equal
-                    if (p1[k] != p2[k]) {return !ans;}
-                }
-            for (int k = 0; k < lmin; k++) { // if lp1 and lp2 are equal
-                if (max[k] != min[k]) {
-                    return !ans;
-                }
-            }
-            for(int i = lmin ; i<lmax;i++){
-                if(max[i] !=0){return !ans;}
+            int lmax = Math.max(lp1, lp2); //checks which function is longer
+            for(double i = EPS ; i< lmax; i++) { // i is until max degree
+                if (Math.abs(f(p1, i) - f(p2, i))>EPS) { // checks if p1(i)==p2(i)
+                    return !ans;}
             }
         }
         else if(p1==null ^ p2==null){return !ans;} // if only 1 of the function is null
@@ -373,7 +364,11 @@ public class Ex1 {
     public static double[] mul(double[] p1, double[] p2) {
         double [] ans = ZERO;//
         /** add you code below
-         basically the same as the add function but with multiplication
+         * need to make an array with multiplication of every a in {A} by b in {B}
+         * for (int a = 0; a < lmax; a++) {
+         *  for (int b = 0; b < lmin; b++) {
+         * }}
+         */
          /////////////////// */
 
         if (p1 == null && p2 == null){return ans;}
@@ -386,17 +381,17 @@ public class Ex1 {
         if (lp1 > lp2 || lp1 == lp2) {max = p1; min = p2;lmax = lp1; lmin = lp2;}
         else {max = p2;min = p1; lmax = lp2; lmin = lp1;}
 
-        if (lmin == 1 ^ lmax ==1) {
+        if (lmin == 1 ^ lmax ==1) { // if there are no x's in one function
             ans = new double[lmax];
-            for (int a = 0; a < lmax; a++) {
+            for (int a = 0; a < lmax; a++) { // the first value is multi of both and the rest are the same as the original longer array
                 ans[a] = max[a] * min[0];
             }
         }
         else {
-            ans = new double[lmax + lmin - 1];
-            for (int a = 0; a < lmax; a++) {
-                for (int b = 0; b < lmin; b++) {
-                    ans[a + b] += max[a] * min[b];
+            ans = new double[lmax + lmin - 1]; // array's lengths
+            for (int a = 0; a < lmax; a++) { // for each value in max
+                for (int b = 0; b < lmin; b++) { // for each value in min
+                    ans[a + b] += max[a] * min[b]; // multiply and add to the proper place in new array
                 }
             }
         }
