@@ -736,9 +736,9 @@ class Ex1Test {
      * tests positive functions
      */
     public void testPositiveMul() {
-        double[] p1 = {1,2,3};;
-        double[] p2 = {4,5,6,7};
-        assertArrayEquals(new double[]{4,10,18,7}, Ex1.mul(p1,p2), Ex1.EPS);
+        double[] p1 = {1,2,3};
+        double[] p2 = {4,5,6};
+        assertArrayEquals(new double[]{4,13,28,27,18}, Ex1.mul(p1,p2));
     }
 
 
@@ -747,19 +747,50 @@ class Ex1Test {
      * tests negative functions
      */
     public void testNegativeMul() {
-        double[] p1 = {-8.4,-2,-7,-80, -72};;
-        double[] p2 = {-3,-85,-4.8};
-        assertArrayEquals(new double[]{25.2,170,33.6,-80, -72}, Ex1.mul(p1,p2), Ex1.EPS);
+        double[] p1 = {-1,-2,-3};;
+        double[] p2 = {-4,-5,-6};
+        assertArrayEquals(new double[]{4,13,28,27,18}, Ex1.mul(p1,p2));
     }
 
     @Test
     /**
      * tests positive and negative values
      */
-    public void testEqualMul() {
+    public void testPositiveNegativeMul() {
         double[] p1 = {-1,2,3};;
         double[] p2 = {4,-5,6};
-        assertArrayEquals(new double[]{-4,-10,18}, Ex1.mul(p1,p2), Ex1.EPS);
+        assertArrayEquals(new double[]{-4,13,-4,-3,18}, Ex1.mul(p1,p2), Ex1.EPS);
+    }
+
+
+    @Test
+    /**
+     * tests when functions length's not equal
+     */
+    public void testNotLenMul() {
+        double[] p1 = {1,2,3};
+        double[] p2 = {1,2};
+        assertArrayEquals(new double[]{1,4,7,6}, Ex1.mul(p1,p2));
+    }
+
+    @Test
+    /**
+     * tests when function length's = 1
+     */
+    public void test1LenMul() {
+        double[] p1 = {1,2,3};;
+        double[] p2 = {5};
+        assertArrayEquals(new double[]{5,10,15}, Ex1.mul(p1,p2));
+    }
+
+    @Test
+    /**
+     * tests when both function length's = 1
+     */
+    public void testBoth1LenMul() {
+        double[] p1 = {10};
+        double[] p2 = {5};
+        assertArrayEquals(new double[]{50}, Ex1.mul(p1,p2));
     }
 
 
@@ -770,20 +801,8 @@ class Ex1Test {
     public void testZeroMul() {
         double[] p1 = {0,0,0,0,0,0};;
         double[] p2 = {0,0};
-        assertArrayEquals(new double[]{0,0,0,0,0,0}, Ex1.mul(p1,p2));
+        assertArrayEquals(new double[]{0,0,0,0,0,0,0}, Ex1.mul(p1,p2));
     }
-
-
-    @Test
-    /**
-     * tests Empty functions
-     */
-    public void testEmptyMul() {
-        double[] p1 = {};;
-        double[] p2 = {};
-        assertArrayEquals(new double[]{}, Ex1.mul(p1,p2));
-    }
-
 
     @Test
     /**
@@ -804,6 +823,18 @@ class Ex1Test {
         double[] p1 = null;
         double[] p2 = null;
         assertArrayEquals(Ex1.ZERO, Ex1.mul(p1,p2));
+    }
+
+    //tests for the function length
+
+    @Test
+    /**
+     * tests positive values for dots in function length
+     */
+    public void testPositiveLength() {
+        double[] p = {0, 0.75};
+        double d = 5;
+        assertEquals(d, Ex1.length(p,0,4,5));
     }
 
 }

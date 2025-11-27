@@ -240,8 +240,22 @@ public class Ex1 {
     public static double sameValue(double[] p1, double[] p2, double x1, double x2, double eps) {
         double ans = x1;
         /** add you code below
-
+         * double f1x1 = f(p1,x1);
+         * double f2x2 = f(p2,x2);
+         * double f1x2 = f(p1, x2);
+         * double d2x1 = f(p2, x1);
+         * if (Math.abs(f(p1, ans) - f(p2,ans))<eps) {return ans;}
+         * if((f1x1-f2x1) * (f1x2 -f2x2)<=0) {return False;}
+         */
          /////////////////// */
+
+        double f1x1 = f(p1,x1);
+        double f2x2 = f(p2,x2);
+        double f1x2 = f(p1, x2);
+        double f2x1 = f(p2, x1);
+
+        if (Math.abs(f(p1, ans) - f(p2,ans))<eps) {return ans;}
+        if((f1x1-f2x1) * (f1x2 -f2x2)<=0) {return 0;}
         return ans;
     }
     /**
@@ -259,8 +273,14 @@ public class Ex1 {
     public static double length(double[] p, double x1, double x2, int numberOfSegments) {
         double ans = x1;
         /** add you code below
-
+         * need to compute the length of function p between 2 dots x1 and x2
+         * distance formula is square root of [(x2-x1)^2+(y2-y1)^2]
+         */
          /////////////////// */
+        double y1 = f(p, x1);
+        double y2 = f(p, x2);
+        double dis = ((x2 - x1) * (x2 - x1)) + ((y2-y1)*(y2-y1));
+        ans = Math.sqrt(dis);
         return ans;
     }
 
@@ -323,22 +343,22 @@ public class Ex1 {
          */
          /////////////////// */
         if (p1 == null && p2 == null){return ans;}
-        if (p1 == null){return p2;}
-        if (p2 == null){return p1;}
+        if (p1 == null){return p2;} // nothing+p2=p2
+        if (p2 == null){return p1;} // p1+nothing=p1
 
         int lp1 = p1.length;
         int lp2 = p2.length;
-        double[] max = null; int lmax = 0; int lmin = 0;
+        double[] max; int lmax; int lmin; // define the longer function as max
         if (lp1 > lp2 || lp1 == lp2) {max = p1; lmax = lp1; lmin = lp2;}
         else {max = p2; lmax = lp2; lmin = lp1;}
 
-        ans = new double[lmax];
+        ans = new double[lmax]; // length is the length of the longer function
         int a = 0;
         while (a<lmin){
-            ans[a] = p1[a] + p2[a];
+            ans[a] = p1[a] + p2[a]; // add the functions to the new array
             a++;
         }
-        while (a >= lmin && a<lmax) {
+        while (a >= lmin && a<lmax) { // add the rest of the numbers in the longer function
             ans[a] = max[a];
             a++;
             }
@@ -357,24 +377,28 @@ public class Ex1 {
          /////////////////// */
 
         if (p1 == null && p2 == null){return ans;}
-        if (p1 == null){return p2;}
-        if (p2 == null){return p1;}
+        if (p1 == null){return p2;} // nothing * p2 = p2
+        if (p2 == null){return p1;} // p1 * nothing = p1
 
         int lp1 = p1.length;
         int lp2 = p2.length;
-        double[] max = null; int lmax = 0; int lmin = 0;
-        if (lp1 > lp2 || lp1 == lp2) {max = p1; lmax = lp1; lmin = lp2;}
-        else {max = p2; lmax = lp2; lmin = lp1;}
+        double[] max; double[] min; int lmax; int lmin; // define the longer function as max
+        if (lp1 > lp2 || lp1 == lp2) {max = p1; min = p2;lmax = lp1; lmin = lp2;}
+        else {max = p2;min = p1; lmax = lp2; lmin = lp1;}
 
-        ans = new double[lmax];
-        int a = 0;
-        while (a<lmin){
-            ans[a] = p1[a] * p2[a];
-            a++;
+        if (lmin == 1 ^ lmax ==1) {
+            ans = new double[lmax];
+            for (int a = 0; a < lmax; a++) {
+                ans[a] = max[a] * min[0];
+            }
         }
-        while (a >= lmin && a<lmax) {
-            ans[a] = max[a];
-            a++;
+        else {
+            ans = new double[lmax + lmin - 1];
+            for (int a = 0; a < lmax; a++) {
+                for (int b = 0; b < lmin; b++) {
+                    ans[a + b] += max[a] * min[b];
+                }
+            }
         }
         return ans;
     }
@@ -398,7 +422,7 @@ public class Ex1 {
         if (po == null){return ans;}
         int lp = po.length; // po= {2,4,6}, lp = 3, f(x) = 6x^2 +4x +2
         if (lp==0 ){return ans;}
-        ans = new double[lp - 1];
+        ans = new double[lp - 1]; // derivative length is the function length minus 1
         for (int i = 0 ; i<ans.length; i++){ // i=1, i=2
             ans[i] = po[i+1] * (i+1); // der = 4*1, der = 6*2
         }
