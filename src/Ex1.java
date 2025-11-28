@@ -262,16 +262,19 @@ public class Ex1 {
      * @return the length approximation of the function between f(x1) and f(x2).
      */
     public static double length(double[] p, double x1, double x2, int numberOfSegments) {
-        double ans = x1;
+        double ans = 0;
         /** add you code below
-         * need to compute the length of function p between 2 dots x1 and x2
+         * need to compute the length of function p between 2 dots x1 x2 by number of segments
          * distance formula is square root of [(x2-x1)^2+(y2-y1)^2]
          */
          /////////////////// */
-        double y1 = f(p, x1);
-        double y2 = f(p, x2);
-        double dis = ((x2 - x1) * (x2 - x1)) + ((y2-y1)*(y2-y1));
-        ans = Math.sqrt(dis);
+        double d = (x2-x1) / numberOfSegments;
+        for(double x = x1; x<x2;x+=d){ // checks all naturals numbers from x1 to x2, adding number of segments
+            double y1 = f(p, x);
+            double y2 = f(p,x+d);
+            double dis = (d*d) + ((y1-y2)*(y1-y2));
+            ans += Math.sqrt(dis);
+        }
         return ans;
     }
 
