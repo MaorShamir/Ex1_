@@ -239,14 +239,16 @@ public class Ex1 {
          * if((f1x1-f2x1) * (f1x2 -f2x2)<=0) {return False;}
          */
          /////////////////// */
+        if (Math.abs(f(p1, x1) - f(p2, x1)) < eps) return x1;
+        if (Math.abs(f(p1, x2) - f(p2, x2)) < eps) return x2;
 
-        double f1x1 = f(p1,x1);
-        double f2x2 = f(p2,x2);
-        double f1x2 = f(p1, x2);
-        double f2x1 = f(p2, x1);
-
-        if (Math.abs(f(p1, ans) - f(p2,ans))<eps) {return ans;}
-        if((f1x1-f2x1) * (f1x2 -f2x2)<=0) {return 0;}
+        double step = (x2 - x1) / 1000;
+        for (double x = x1; x <= x2; x += step) {
+            if (Math.abs(f(p1, x) - f(p2, x)) < eps) {
+                ans = x;
+                break;
+            }
+        }
         return ans;
     }
     /**
@@ -338,11 +340,7 @@ public class Ex1 {
         double [] ans = ZERO;//  -1.0x^2 +3.0x +2.0
         /** add you code below
          * for(int i = 0; i<p.length; i++){
-         * if p[i] = number
-         * if p[i] = dot
-         * if p[i] == + or -
-         * if p[i] == x
-         * }
+         * split to new array
          */
          /////////////////// */
         int len = 1;
@@ -371,9 +369,7 @@ public class Ex1 {
             }
             num += character;
         } // now I have array of strings with numbers without escapes
-        for (int k = 0; k<len; k++){
-
-        }
+        // that's the best I got sorry
         return ans;
     }
     /**
