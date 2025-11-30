@@ -498,9 +498,9 @@ class Ex1Test {
 
     @Test
     /**
-     * tests if 2 functions are equal when length is equal but other value
+     * tests if 2 functions are equal when length is equal but different value
      */
-    public void testEqualsSameLengthOtherValue() {
+    public void testEqualsSameLenNoValue() {
         double[] p1 = {-8.9, 508, -536.9, 5.8};
         double[] p2 = {-8.9, -70, -536.9, 5.8};
 
@@ -822,6 +822,17 @@ class Ex1Test {
         double[] p = {0, 0.75};
         double d = 5;
         assertEquals(d, Ex1.length(p,0,4,5));
+    }
+
+    //tests for the function getPolynomFromString
+    @Test
+/**
+ * tests positive values
+ */
+    public void testPositiveGetPolynomFromString() {
+        String p = "1.0x^2 +3.0x +2.0";
+        double [] arrP = {2, 3, 1};
+        assertEquals(arrP, Ex1.getPolynomFromString(p));
     }
 
 }

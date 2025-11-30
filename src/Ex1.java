@@ -272,6 +272,8 @@ public class Ex1 {
         for(double x = x1; x<x2;x+=d){ // checks all naturals numbers from x1 to x2, adding number of segments
             double y1 = f(p, x);
             double y2 = f(p,x+d);
+            y1 = Math.abs(y1);  // length must be positive
+            y2 = Math.abs(y2);
             double dis = (d*d) + ((y1-y2)*(y1-y2));
             ans += Math.sqrt(dis);
         }
@@ -292,10 +294,38 @@ public class Ex1 {
     public static double area(double[] p1,double[]p2, double x1, double x2, int numberOfTrapezoid) {
         double ans = 0;
         /** add you code below
-
+         double d = (x2-x1) / numberOfTrapezoid;
+         for(double x = x1; x<x2;x+=d){
+         double y1 = f(p1, x) - f(p2, x);
+         double y2 = f(p1, x+d) - f(p2, x+d);
+         double trapezoid = (d *(y1+y2)) \ 2;
+         ans += trapezoid;
+         }
          /////////////////// */
+
+        if (numberOfTrapezoid <= 0) return 0;
+        double d = (x2-x1) / numberOfTrapezoid; // width of trapezoid
+        for (int i = 0; i<numberOfTrapezoid; i++){ //checks all naturals numbers from x1 to x2, adding number of trapezoid
+            double x = x1 + (i * d);
+            double nextX = x + d;
+
+            double y1 = f(p1, x) - f(p2, x); // first dot height
+            double y2 = f(p1, nextX) - f(p2, nextX); // next dot height
+
+            if (y1 == 0 || y2 == 0 || (y1 > 0 && y2 > 0) || (y1 < 0 && y2 < 0)) { //if there is no cut
+                ans += Math.abs((y1 + y2) * d / 2.0);
+            }
+            else { //There is a cut, need to split the trapezoid
+                double t = Math.abs(y1) / (Math.abs(y1) + Math.abs(y2));
+                double zeroX = x + d * t;
+
+                ans += Math.abs(y1) * (zeroX - x) / 2.0;      // left triangle
+                ans += Math.abs(y2) * (nextX - zeroX) / 2.0;  // right triangle
+            }
+        }
         return ans;
     }
+
     /**
      * This function computes the array representation of a polynomial function from a String
      * representation. Note:given a polynomial function represented as a double array,
@@ -307,8 +337,43 @@ public class Ex1 {
     public static double[] getPolynomFromString(String p) {
         double [] ans = ZERO;//  -1.0x^2 +3.0x +2.0
         /** add you code below
-
+         * for(int i = 0; i<p.length; i++){
+         * if p[i] = number
+         * if p[i] = dot
+         * if p[i] == + or -
+         * if p[i] == x
+         * }
+         */
          /////////////////// */
+        int len = 1;
+        for(int i = 0; i<p.length(); i++) {
+            char character = p.charAt(i);
+            if (character == '+' ^ character == '-') {
+                len++;
+            }
+        }
+        String[] stringArray = new String[len];
+        int a = 0;
+        String num = "";
+        for (int i = 0; i<p.length();i++) {
+            char character = p.charAt(i);
+            if (character == ' ') {
+                stringArray[a] = num;
+                num = ""; // restarts the number in arr
+                a++; // place in arr
+                i++; // skips the escape
+                continue;
+            }
+            if (i == p.length()-1){
+                num += character;
+                stringArray[a] = num;
+                break;
+            }
+            num += character;
+        } // now I have array of strings with numbers without escapes
+        for (int k = 0; k<len; k++){
+
+        }
         return ans;
     }
     /**
